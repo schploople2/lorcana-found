@@ -21,13 +21,13 @@
 
 [[redirects]]
   from  = "/api/geocode/search"
-  to    = "/.netlify/functions/geocode?type=search"
+  to    = "/.netlify/functions/geocode-search"
   status = 200
   force  = true
 
 [[redirects]]
   from  = "/api/geocode/reverse"
-  to    = "/.netlify/functions/geocode?type=reverse"
+  to    = "/.netlify/functions/geocode-reverse"
   status = 200
   force  = true
 
