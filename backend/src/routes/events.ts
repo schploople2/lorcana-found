@@ -1,7 +1,8 @@
 import { Router } from 'express';
 
 const router = Router();
-const BASE_URL = 'https://api.cloudflare.ravensburgerplay.com/hydraproxy/api/v2';
+const BASE_URL        = 'https://api.cloudflare.ravensburgerplay.com/hydraproxy/api/v2';
+const BASE_URL_DETAIL = 'https://api.ravensburgerplay.com/api/v2';
 const UPSTREAM_HEADERS = {
   'Content-Type': 'application/json',
   'Referer': 'https://tcg.ravensburgerplay.com/',
@@ -84,7 +85,7 @@ router.get('/quick-filters', async (_req, res) => {
 // GET /api/events/:id
 router.get('/:id', async (req, res) => {
   try {
-    const url = `${BASE_URL}/events/${req.params.id}/`;
+    const url = `${BASE_URL_DETAIL}/events/${req.params.id}/`;
     const data = await proxyGet(url, 10 * 60 * 1000);
     res.json(data);
   } catch (err) {

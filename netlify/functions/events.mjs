@@ -1,4 +1,5 @@
-const BASE = 'https://api.cloudflare.ravensburgerplay.com/hydraproxy/api/v2';
+const BASE_LIST   = 'https://api.cloudflare.ravensburgerplay.com/hydraproxy/api/v2';
+const BASE_DETAIL = 'https://api.ravensburgerplay.com/api/v2';
 const UPSTREAM_HEADERS = {
   'Content-Type': 'application/json',
   'Referer': 'https://tcg.ravensburgerplay.com/',
@@ -12,8 +13,8 @@ export async function handler(event) {
     let url;
 
     if (id) {
-      // Single event detail
-      url = `${BASE}/events/${id}/`;
+      // Single event detail uses the direct API, not the Cloudflare proxy
+      url = `${BASE_DETAIL}/events/${id}/`;
     } else {
       // Event list — forward all query params, ensure multi-value display_statuses works
       const params = new URLSearchParams();
@@ -26,7 +27,7 @@ export async function handler(event) {
       }
 
       if (!params.has('game_slug')) params.set('game_slug', 'disney-lorcana');
-      url = `${BASE}/events/?${params}`;
+      url = `${BASE_LIST}/events/?${params}`;
     }
 
     const res = await fetch(url, { headers: UPSTREAM_HEADERS });
