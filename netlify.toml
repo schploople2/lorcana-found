@@ -1,0 +1,39 @@
+[build]
+  command   = "npm run build --workspace=frontend"
+  publish   = "frontend/dist"
+
+[functions]
+  directory = "netlify/functions"
+
+# ── API proxy rules (must come before SPA fallback) ──────────────────────────
+
+[[redirects]]
+  from  = "/api/events/:id"
+  to    = "/.netlify/functions/events?id=:id"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from  = "/api/events"
+  to    = "/.netlify/functions/events"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from  = "/api/geocode/search"
+  to    = "/.netlify/functions/geocode?type=search"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from  = "/api/geocode/reverse"
+  to    = "/.netlify/functions/geocode?type=reverse"
+  status = 200
+  force  = true
+
+# ── SPA fallback — let React Router handle all other routes ──────────────────
+
+[[redirects]]
+  from  = "/*"
+  to    = "/index.html"
+  status = 200
