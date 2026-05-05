@@ -8,8 +8,8 @@
 # ── API proxy rules (must come before SPA fallback) ──────────────────────────
 
 [[redirects]]
-  from  = "/api/events/:id"
-  to    = "/.netlify/functions/events?id=:id"
+  from  = "/api/events/*"
+  to    = "/.netlify/functions/events"
   status = 200
   force  = true
 

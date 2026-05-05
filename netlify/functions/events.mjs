@@ -7,7 +7,10 @@ const UPSTREAM_HEADERS = {
 };
 
 export async function handler(event) {
-  const id = event.queryStringParameters?.id;
+  // Parse the event ID from the path, e.g. /api/events/518090 → "518090"
+  // Netlify proxy redirects preserve the original request path in event.path
+  const pathParts = (event.path || '').split('/').filter(Boolean);
+  const id = pathParts.length > 2 ? pathParts[2] : null;
 
   try {
     let url;
