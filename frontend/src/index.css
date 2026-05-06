@@ -513,8 +513,13 @@ html, body, #root {
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .app-layout { flex-direction: column; }
-  .sidebar { width: 100% !important; height: auto; max-height: 40vh; }
-  .app-layout.sidebar-closed .sidebar { height: 0; max-height: 0; }
+  .sidebar { width: 100% !important; height: auto; max-height: 50vh; overflow-y: auto; }
+  .app-layout.sidebar-closed .sidebar { height: 0; max-height: 0; overflow: hidden; }
+
+  /* Hide the sidebar logo on mobile — topbar already shows the title */
+  .filters-logo { display: none; }
+  /* Tighten sidebar padding on mobile */
+  .filters-panel { padding: 12px 14px; gap: 14px; }
 
   .detail-meta-grid { grid-template-columns: 1fr; }
   .calendar-wrap { padding: 8px; }

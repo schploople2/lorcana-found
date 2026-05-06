@@ -17,6 +17,20 @@ const DEFAULT_FILTERS: EventFilters = {
   radiusMiles: 25,
 };
 
+const STORAGE_KEY = 'lorcana-found-filters';
+
+function loadFilters(): EventFilters {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return { ...DEFAULT_FILTERS, ...JSON.parse(raw) };
+  } catch { /* ignore */ }
+  return DEFAULT_FILTERS;
+}
+
+function saveFilters(f: EventFilters) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(f)); } catch { /* ignore */ }
+}
+
 function monthStart(d: Date) {
   return new Date(d.getFullYear(), d.getMonth(), 1);
 }
@@ -26,7 +40,7 @@ function monthEnd(d: Date) {
 
 export function CalendarPage() {
   const navigate = useNavigate();
-  const [filters, setFilters] = useState<EventFilters>(DEFAULT_FILTERS);
+  const [filters, setFilters] = useState<EventFilters>(loadFilters);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [dateRange, setDateRange] = useState<DateRange>(() => {
     const now = new Date();
@@ -35,10 +49,14 @@ export function CalendarPage() {
 
   const { events, loading, error } = useEvents({ filters, dateRange });
 
-  // Auto-detect location on first load
+  // Persist filters to localStorage whenever they change
+  useEffect(() => { saveFilters(filters); }, [filters]);
+
+  // Auto-detect location on first load — only if no saved location exists
   const didGeolocate = useRef(false);
+  const hasSavedLocation = localStorage.getItem(STORAGE_KEY) !== null;
   useEffect(() => {
-    if (didGeolocate.current || !navigator.geolocation) return;
+    if (didGeolocate.current || !navigator.geolocation || hasSavedLocation) return;
     didGeolocate.current = true;
     navigator.geolocation.getCurrentPosition(async (pos) => {
       try {
