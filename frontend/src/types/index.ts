@@ -53,6 +53,26 @@ export interface EventsResponse {
   results: LorcanaEvent[];
 }
 
+export interface Registration {
+  id: number;
+  user: { id: number; best_identifier: string };
+  best_identifier: string;
+  special_user_identifier: string;
+  registration_status: string;
+  matches_won: number;
+  matches_lost: number;
+  matches_drawn: number;
+  total_match_points: number;
+  final_place_in_standings: number | null;
+  full_profile_picture_url: string | null;
+}
+
+export interface RegistrationsResponse {
+  count: number;
+  total: number;
+  results: Registration[];
+}
+
 export interface GeoResult {
   lat: number;
   lon: number;
@@ -74,3 +94,6 @@ export interface DateRange {
   start: Date;
   end: Date;
 }
+
+export type ViewMode = 'calendar' | 'list' | 'map';
+export type EventMode = 'upcoming' | 'past';

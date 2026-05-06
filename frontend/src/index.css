@@ -510,18 +510,242 @@ html, body, #root {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ── Mode & View toggles ── */
+.mode-toggle, .view-toggle {
+  display: flex;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.mode-btn, .view-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  padding: 5px 11px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+.mode-btn:hover, .view-btn:hover { color: var(--text); }
+.mode-btn-active { background: var(--accent2) !important; color: #fff !important; }
+.view-btn-active { background: var(--border) !important; color: var(--text) !important; }
+
+/* ── List View ── */
+.list-view {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.event-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.event-table thead tr {
+  border-bottom: 2px solid var(--border);
+}
+
+.event-table th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.event-row {
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.event-row:hover { background: var(--card); }
+.event-row-canceled { opacity: 0.5; }
+
+.event-row td {
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+
+.col-date-day { font-weight: 500; }
+.col-date-time { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+.col-name { max-width: 260px; }
+.col-name-text { display: block; font-weight: 500; }
+
+.col-canceled-tag, .col-results-tag {
+  display: inline-block;
+  margin-top: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.col-canceled-tag { background: rgba(229,62,62,0.15); color: #fc8181; }
+.col-results-tag  { background: rgba(159,122,234,0.15); color: var(--accent2); }
+
+.col-store { color: var(--text-muted); font-size: 12px; max-width: 180px; }
+
+.format-pill {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.col-players { text-align: right; color: var(--text-muted); font-size: 12px; white-space: nowrap; }
+.col-fee { text-align: right; white-space: nowrap; font-size: 12px; }
+
+/* ── Map View ── */
+.map-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.map-popup {
+  min-width: 180px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.map-popup-format {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.map-popup-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.map-popup-meta { font-size: 11px; color: #555; margin-bottom: 2px; }
+.map-popup-store { font-size: 11px; color: #666; margin-bottom: 2px; }
+.map-popup-fee { font-size: 11px; color: #444; margin-bottom: 8px; }
+
+.map-popup-btn {
+  display: block;
+  width: 100%;
+  background: #4F46E5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+.map-popup-btn:hover { background: #4338CA; }
+
+/* Leaflet overrides for dark theme */
+.leaflet-container { background: #0d0b1e; }
+.leaflet-popup-content-wrapper {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.leaflet-popup-tip { background: #fff; }
+
+/* ── Detail page topbar ── */
+.detail-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.share-btn {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  padding: 7px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.share-btn:hover { color: var(--accent2); border-color: var(--accent2); }
+
+.register-btn-secondary {
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border);
+}
+.register-btn-secondary:hover { filter: none !important; border-color: var(--accent2); }
+
+/* ── Registrations ── */
+.reg-loading, .reg-error, .reg-empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 8px 0;
+}
+.reg-error { color: #fc8181; }
+
+.reg-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.reg-header {
+  display: flex;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.reg-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  background: var(--card);
+}
+.reg-row-first { border-left: 3px solid var(--accent); }
+
+.reg-col-place { width: 44px; flex-shrink: 0; font-weight: 600; color: var(--text-muted); }
+.reg-col-num   { width: 28px; flex-shrink: 0; color: var(--text-muted); font-size: 12px; }
+.reg-col-name  { flex: 1; font-weight: 500; }
+.reg-record    { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .app-layout { flex-direction: column; }
   .sidebar { width: 100% !important; height: auto; max-height: 50vh; overflow-y: auto; }
   .app-layout.sidebar-closed .sidebar { height: 0; max-height: 0; overflow: hidden; }
 
-  /* Hide the sidebar logo on mobile — topbar already shows the title */
   .filters-logo { display: none; }
-  /* Tighten sidebar padding on mobile */
   .filters-panel { padding: 12px 14px; gap: 14px; }
 
   .detail-meta-grid { grid-template-columns: 1fr; }
   .calendar-wrap { padding: 8px; }
   .topbar-location { display: none; }
+
+  .mode-toggle, .view-toggle { font-size: 11px; }
+  .col-store { display: none; }
+  .col-players { display: none; }
 }

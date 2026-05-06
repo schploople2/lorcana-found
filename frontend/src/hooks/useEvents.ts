@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { fetchEvents } from '../services/api';
-import type { DateRange, EventFilters, LorcanaEvent } from '../types';
+import type { DateRange, EventFilters, EventMode, LorcanaEvent } from '../types';
 
 interface UseEventsParams {
   filters: EventFilters;
   dateRange: DateRange;
+  mode?: EventMode;
 }
 
 interface UseEventsResult {
@@ -13,7 +14,7 @@ interface UseEventsResult {
   error: string | null;
 }
 
-export function useEvents({ filters, dateRange }: UseEventsParams): UseEventsResult {
+export function useEvents({ filters, dateRange, mode = 'upcoming' }: UseEventsParams): UseEventsResult {
   const [events, setEvents] = useState<LorcanaEvent[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +28,7 @@ export function useEvents({ filters, dateRange }: UseEventsParams): UseEventsRes
     setLoading(true);
     setError(null);
 
-    fetchEvents(filters, dateRange)
+    fetchEvents(filters, dateRange, mode)
       .then(data => {
         if (controller.signal.aborted) return;
         setEvents(data.results);
@@ -47,6 +48,7 @@ export function useEvents({ filters, dateRange }: UseEventsParams): UseEventsRes
     filters.search,
     dateRange.start.toISOString(),
     dateRange.end.toISOString(),
+    mode,
   ]);
 
   return { events, loading, error };
