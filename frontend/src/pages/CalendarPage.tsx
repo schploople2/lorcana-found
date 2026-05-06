@@ -68,9 +68,8 @@ export function CalendarPage() {
   useEffect(() => { saveFilters(filters); }, [filters]);
 
   const didGeolocate = useRef(false);
-  const hasSavedLocation = localStorage.getItem(STORAGE_KEY) !== null;
   useEffect(() => {
-    if (didGeolocate.current || !navigator.geolocation || hasSavedLocation) return;
+    if (didGeolocate.current || !navigator.geolocation || filters.locationSet) return;
     didGeolocate.current = true;
     navigator.geolocation.getCurrentPosition(async (pos) => {
       try {
@@ -78,7 +77,7 @@ export function CalendarPage() {
         const name = geo.city
           ? `${geo.city}${geo.state ? `, ${geo.state}` : ''}`
           : 'Current location';
-        setFilters(f => ({ ...f, latitude: geo.lat, longitude: geo.lon, locationName: name }));
+        setFilters(f => ({ ...f, latitude: geo.lat, longitude: geo.lon, locationName: name, locationSet: true }));
       } catch { /* keep default */ }
     });
   }, []);

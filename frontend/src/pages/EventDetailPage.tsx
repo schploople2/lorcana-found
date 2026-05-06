@@ -67,7 +67,7 @@ export function EventDetailPage() {
     <div className="detail-page">
       <div className="detail-container">
         <div className="detail-topbar">
-          <button className="back-btn" onClick={() => navigate(-1)}>
+          <button className="back-btn" onClick={() => navigate('/')}>
             ← Back to Calendar
           </button>
           <button className="share-btn" onClick={handleShare}>

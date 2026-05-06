@@ -88,6 +88,7 @@ export interface EventFilters {
   locationName?: string;
   radiusMiles: number;
   search?: string;
+  locationSet?: boolean; // true once user or geolocation has explicitly set a location
 }
 
 export interface DateRange {

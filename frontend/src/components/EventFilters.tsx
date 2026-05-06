@@ -37,7 +37,7 @@ export function EventFiltersPanel({ filters, onChange }: Props) {
       : result.displayName.split(',').slice(0, 2).join(',').trim();
     setLocationInput(name);
     setShowSuggestions(false);
-    onChange({ ...filters, latitude: result.lat, longitude: result.lon, locationName: name });
+    onChange({ ...filters, latitude: result.lat, longitude: result.lon, locationName: name, locationSet: true });
   };
 
   const handleUseMyLocation = () => {
@@ -51,7 +51,7 @@ export function EventFiltersPanel({ filters, onChange }: Props) {
             ? `${geo.city}${geo.state ? `, ${geo.state}` : ''}`
             : 'Current location';
           setLocationInput(name);
-          onChange({ ...filters, latitude: geo.lat, longitude: geo.lon, locationName: name });
+          onChange({ ...filters, latitude: geo.lat, longitude: geo.lon, locationName: name, locationSet: true });
         } catch { /* ignore */ } finally {
           setGeoLoading(false);
         }

@@ -82,6 +82,19 @@ router.get('/quick-filters', async (_req, res) => {
   }
 });
 
+// GET /api/events/:id/registrations
+router.get('/:id/registrations', async (req, res) => {
+  try {
+    const params = new URLSearchParams({ page_size: '200', ordering: 'final_place_in_standings' });
+    const url = `${BASE_URL_DETAIL}/events/${req.params.id}/registrations/?${params}`;
+    const data = await proxyGet(url, 60 * 1000);
+    res.json(data);
+  } catch (err) {
+    console.error('[events] registrations error:', err);
+    res.status(502).json({ error: 'Failed to fetch registrations' });
+  }
+});
+
 // GET /api/events/:id
 router.get('/:id', async (req, res) => {
   try {

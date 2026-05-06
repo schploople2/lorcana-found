@@ -16,7 +16,13 @@ export function Registrations({ eventId, isPast }: Props) {
     setLoading(true);
     fetchRegistrations(eventId)
       .then(data => {
-        setRegistrations(data.results ?? []);
+        const sorted = (data.results ?? []).slice().sort((a, b) => {
+          if (a.final_place_in_standings == null && b.final_place_in_standings == null) return 0;
+          if (a.final_place_in_standings == null) return 1;
+          if (b.final_place_in_standings == null) return -1;
+          return a.final_place_in_standings - b.final_place_in_standings;
+        });
+        setRegistrations(sorted);
         setLoading(false);
       })
       .catch(() => {
