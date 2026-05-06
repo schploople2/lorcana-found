@@ -128,11 +128,12 @@ export function EventFiltersPanel({ filters, onChange }: Props) {
       <div className="filter-legend">
         <div className="legend-title">Format</div>
         {[
-          ['Constructed', '#4F46E5'],
-          ['Sealed', '#7C3AED'],
-          ['Draft', '#16A34A'],
-          ['Two-Headed Giant', '#EA580C'],
-          ['Other', '#6366F1'],
+          ['Core Constructed',     '#4F46E5'],
+          ['Infinity Constructed', '#7C3AED'],
+          ['Sealed',               '#0891B2'],
+          ['Pack Rush',            '#EA580C'],
+          ['Draft',                '#16A34A'],
+          ['Other',                '#6366F1'],
         ].map(([name, color]) => (
           <div key={name} className="legend-item">
             <span className="legend-dot" style={{ background: color }} />

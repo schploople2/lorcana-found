@@ -1,11 +1,9 @@
 export const FORMAT_COLORS: Record<string, string> = {
-  'Constructed': '#4F46E5',
-  'Sealed': '#7C3AED',
-  'Sealed Deck': '#7C3AED',
-  'Draft': '#16A34A',
-  'Two-Headed Giant': '#EA580C',
-  'Casual': '#0284C7',
-  'Open': '#0891B2',
+  'Core Constructed':     '#4F46E5',  // indigo
+  'Infinity Constructed': '#7C3AED',  // violet
+  'Sealed':               '#0891B2',  // cyan
+  'Pack Rush':            '#EA580C',  // orange
+  'Draft':                '#16A34A',  // green
 };
 
 export function getFormatColor(formatName?: string | null): string {
